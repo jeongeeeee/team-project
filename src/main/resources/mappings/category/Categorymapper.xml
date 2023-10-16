@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.spring.huiloaelag.product.dao.CategoryDAO">
+
+	<!-- 전체상품목록 -->	
+	<select id="getAllList" parameterType="ProductVO" resultType="ProductVO">
+		SELECT * FROM PRODUCT
+	</select>
+	
+	<!-- 카테고리 -->
+   <select id="getProductList" parameterType="int" resultType="ProductVO">
+   		SELECT * FROM PRODUCT WHERE PCODE LIKE #{pcode} || '%' ORDER BY PCODE DESC
+   </select>
+   
+   <!-- <select id="getProductReviewList" parameterType="map" resultMap="">
+   		SELECT * FROM PRODUCT P, REVIEW R 
+		WHERE P.PCODE = R.PCODE(+)
+		AND P.PCODE BETWEEN #{start} AND #{end}
+		ORDER BY P.PCODE DESC
+   </select> -->
+   
+   <select id="getProductSelectList" parameterType="map" resultType="ProductVO">
+   		SELECT * FROM PRODUCT
+		WHERE PCODE BETWEEN #{start} AND #{end}
+		ORDER BY  
+		<choose>
+			<when test="sort == 1">PPRICE DESC</when>
+			<when test="sort == 2">PPRICE ASC</when>
+		</choose>
+   </select>
+	
+	<!-- 상세 상품 -->
+	<select id="getDetail" parameterType="String" resultType="ProductVO">
+		SELECT * FROM PRODUCT WHERE PCODE = #{pcode}
+	</select>
+	
+	<!-- 리뷰 pcode별 리스트 -->
+	<select id="getReviewList" parameterType="String" resultType="ReviewVO">
+		SELECT * FROM REVIEW WHERE PCODE = #{pcode}
+	</select>
+	
+	
+	<!-- 리뷰 갯수 -->
+	<select id="getReviewCount" parameterType="String" resultType="int">
+		SELECT COUNT(*) FROM REVIEW WHERE PCODE = #{pcode}
+		
+	</select>
+	
+	
+	<!-- 리뷰 평점 -->
+	<select id="getReviewAVG" parameterType="String" resultType="int">
+		SELECT AVG(RSTAR) FROM REVIEW WHERE PCODE = #{pcode}
+	</select>
+	
+	<!-- main에 들어가 리스트 -->
+	<select id="getProductAll" resultType="ProductVO">
+		SELECT * FROM PRODUCT
+	</select>
+	
+</mapper>

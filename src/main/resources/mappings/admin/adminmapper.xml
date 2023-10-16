@@ -1,0 +1,310 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ProductDAO">
+	<select id="getAlcoholList" parameterType="int" resultType="ProductVO">
+		SELECT PCODE, PNAME, PPRICE, PINFO FROM PRODUCT
+		WHERE PCODE LIKE  #{divisionNum} || '%'
+	</select>
+	
+	<select id="getAlcoholAjaxList" parameterType="PagingVO" resultType="ProductVO">
+		SELECT RN, PCODE, PNAME, PPRICE, PINFO
+		    FROM (
+		        SELECT ROWNUM RN, A.* 
+		            FROM (
+		                    SELECT * 
+		                    FROM PRODUCT
+		                    WHERE PCODE LIKE #{divisionNum} || '%'
+		                    ORDER BY PCODE 
+		                    ) A
+		            )
+		WHERE RN BETWEEN #{sqlStart} AND #{sqlEnd}
+	</select>
+	
+	<select id="getUsersList" parameterType="PagingVO" resultType="UserVO">
+		SELECT *
+		    FROM (
+		        SELECT ROWNUM RN, A.* 
+		            FROM (
+		                    SELECT *
+		                    FROM USERS
+		                    WHERE 1=1
+		                    	<choose>
+
+									<when test = 'searchDivision == "1" and searchKeyword != "" '>
+										AND USERID LIKE '%' || #{searchKeyword} || '%'
+									</when>
+									
+									<when test = 'searchDivision == "2" and searchKeyword != "" '>
+										AND UNAME LIKE '%' || #{searchKeyword} || '%'
+									</when>
+									
+									<when test = 'searchDivision == "3" and searchKeyword != "" '>
+										AND UNICK LIKE '%' || #{searchKeyword} || '%'
+									</when>
+	
+									<otherwise>
+										AND 2=2
+									</otherwise>
+								
+								</choose>
+		                    ORDER BY UNAME
+		                    ) A
+		            )
+		WHERE RN BETWEEN #{sqlStart} AND #{sqlEnd}
+	</select>
+	
+	<select id="getUsersTotal" parameterType="PagingVO" resultType="int">
+		SELECT COUNT(*) FROM USERS
+		WHERE 1=1
+		<choose>
+			<when test = 'searchDivision == "1" and searchKeyword != "" '>
+				AND USERID LIKE '%' || #{searchKeyword} || '%'
+			</when>
+			
+			<when test = 'searchDivision == "2" and searchKeyword != "" '>
+				AND UNAME LIKE '%' || #{searchKeyword} || '%'
+			</when>
+			
+			<when test = 'searchDivision == "3" and searchKeyword != "" '>
+				AND UNICK LIKE '%' || #{searchKeyword} || '%'
+			</when>
+
+			<otherwise>
+				AND 2=2
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="getReviewCntTotal" resultType="int">
+		SELECT COUNT(*) FROM REVIEW
+		WHERE 1=1
+		<choose>
+			<when test = 'searchDivision == "1" and searchKeyword != "" '>
+				AND USERID LIKE '%' || #{searchKeyword} || '%'
+			</when>
+			
+			<when test = 'searchDivision == "2" and searchKeyword != "" '>
+				AND UNAME LIKE '%' || #{searchKeyword} || '%'
+			</when>
+			
+			<when test = 'searchDivision == "3" and searchKeyword != "" '>
+				AND UNICK LIKE '%' || #{searchKeyword} || '%'
+			</when>
+
+			<otherwise>
+				AND 2=2
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="getAjaxReviewList" parameterType="PagingVO" resultType="ReviewVO">
+		SELECT * FROM (
+		SELECT ROWNUM RN, A.*
+		FROM (
+		    SELECT U.USERID, R.RDATE, P.PCODE, P.PNAME, R.RCONTENT, R.RTITLE 
+		    FROM REVIEW R,
+		        USERS U,
+		        PRODUCT P
+		    WHERE R.UCODE = U.UCODE
+		    AND   R.PCODE = P.PCODE
+		    ORDER BY RDATE DESC
+		) A
+		)
+		WHERE RN BETWEEN #{sqlStart} AND #{sqlEnd}
+	</select>
+	
+<!-- 	<select id="lastPcode" parameterType="int" resultType="int">
+		SELECT MAX(PCODE) FROM PRODUCT WHERE PCODE LIKE #{pcode} || '%'
+	</select> -->
+	
+	<select id="getProduct" parameterType="int" resultType="ProductVO">
+		SELECT * FROM PRODUCT WHERE PCODE = #{pcode}
+	</select>
+	
+	<select id="getQnACnt" resultType="int">
+		SELECT COUNT(*) FROM QNA
+		WHERE 1=1
+		<choose>
+			<when test = 'searchDivision == "1" and searchKeyword != "" '>
+				AND QCODE LIKE '%' || #{searchKeyword} || '%'
+			</when>
+			
+			<when test = 'searchDivision == "2" and searchKeyword != "" '>
+				AND QCONTENT LIKE '%' || #{searchKeyword} || '%'
+			</when>
+
+			<otherwise>
+				AND 2=2
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="getAjaxQnAList" parameterType="PagingVO" resultType="QnaVO">
+		SELECT * 
+		FROM (SELECT ROWNUM RN, A.* 
+		FROM (SELECT QCODE, QTITLE, QCONTENT, QDATE 
+		FROM QNA 
+		WHERE 1=1
+		<choose>
+	
+			<when test = 'searchDivision == "1" and searchKeyword != "" '>
+				AND QCODE LIKE '%' || #{searchKeyword} || '%'
+			</when>
+			
+			<when test = 'searchDivision == "2" and searchKeyword != "" '>
+				AND QCONTENT LIKE '%' || #{searchKeyword} || '%'
+			</when>
+		
+			<otherwise>
+				AND 2=2
+			</otherwise>
+		</choose>
+		ORDER BY QDATE DESC
+		) A) 
+		WHERE RN BETWEEN #{sqlStart} AND #{sqlEnd}
+	</select>
+	
+	<select id="getNoticeCnt" resultType="int">
+		SELECT COUNT(*) FROM NOTICE
+	</select>
+	
+	<select id="getNoticeList" parameterType="PagingVO" resultType="NoticeVO">
+		SELECT * FROM (
+		SELECT ROWNUM RN, A.*
+			FROM (
+			    SELECT *
+			    FROM NOTICE
+			    ORDER BY NDATE DESC
+			) A
+		)
+		WHERE RN BETWEEN #{sqlStart} AND #{sqlEnd}
+	</select>
+	
+	<insert id="productInsert" parameterType="ProductVO">
+		INSERT INTO PRODUCT 
+		VALUES((SELECT MAX(PCODE) FROM PRODUCT
+		WHERE PCODE LIKE #{pcode} || '%')+1, #{pname}, #{pprice}, #{pinfo}, #{pimg}, #{pdetailimg}, #{pctyimg}, #{psweet}, #{psour}, #{pbody}, #{plocal})
+	</insert>
+	
+	<insert id="noticeInsert" parameterType="NoticeVO">
+		INSERT INTO NOTICE
+		VALUES  ((SELECT MAX(NCODE) FROM NOTICE) + 1, 0, #{ntitle}, #{ncontent}, SYSDATE)
+	</insert>
+	
+	<delete id="productDelete" parameterType="int">
+		DELETE FROM PRODUCT WHERE PCODE = #{pcode}
+	</delete>
+	
+	<delete id="reviewDelete" parameterType="ReviewVO">
+		DELETE FROM (
+		SELECT R.*
+		FROM REVIEW R,
+		USERS U
+		WHERE R.UCODE = U.UCODE
+		AND U.USERID = #{userId} AND R.PCODE = #{pCode})
+	</delete>
+	
+	<delete id="memberDelete" parameterType="int">
+		DELETE FROM USERS WHERE UCODE = #{uCode}
+	</delete>
+	
+	<delete id="questionDelete" parameterType="int">
+		DELETE FROM QNA WHERE QCODE= #{qCode}
+	</delete>
+	
+	<delete id="noticeDelete" parameterType="int">
+		DELETE FROM NOTICE WHERE NCODE= #{ncode}
+	</delete>
+	
+	<update id="productUpdate" parameterType="ProductVO">
+		UPDATE PRODUCT
+		SET PNAME = #{pname},
+		    PPRICE = #{pprice},
+		    PINFO = #{pinfo},
+		    PIMG = #{pimg},
+		    PDETAILIMG = #{pdetailimg},
+		    PCTYIMG = #{pctyimg},
+		    PSWEET = #{psweet},
+		    PSOUR = #{psour},
+		    PBODY = #{pbody},
+		    PLOCAL = #{plocal}
+		WHERE PCODE = #{pcode}
+	</update>
+	
+	<select id="getOrderHistory" resultType="hashmap">
+		SELECT U.UNAME, U.UPHONE, U.UADDR, P.PNAME, O.OCNT, O.OPRICE, O.OPAY, TO_DATE(O.ODATE) FROM ORDERS O, USERS U, PRODUCT P
+		 WHERE O.UCODE = U.UCODE
+		   AND O.PCODE = P.PCODE
+	</select>
+	
+	<select id="getMonthlyPrice" parameterType="java.lang.Integer" resultType="java.lang.Integer">
+		SELECT SUM(OPRICE)
+		FROM ORDERS
+		WHERE 1=1
+		<choose>
+			<when test="_parameter == 0">
+				AND ODATE BETWEEN TO_DATE('20230101', 'YYYYMMDD') AND TO_DATE('20230131', 'YYYYMMDD')
+			</when>
+			<when test="_parameter == 1">
+				AND ODATE BETWEEN TO_DATE('20230201', 'YYYYMMDD') AND TO_DATE('20230228', 'YYYYMMDD')
+			</when>
+			<when test="_parameter == 2">
+				AND ODATE BETWEEN TO_DATE('20230301', 'YYYYMMDD') AND TO_DATE('20230331', 'YYYYMMDD')
+			</when>
+			<when test="_parameter == 3">
+				AND ODATE BETWEEN TO_DATE('20230401', 'YYYYMMDD') AND TO_DATE('20230430', 'YYYYMMDD')
+			</when>
+			<when test="_parameter == 4">
+				AND ODATE BETWEEN TO_DATE('20230501', 'YYYYMMDD') AND TO_DATE('20230531', 'YYYYMMDD')
+			</when>
+			<when test="_parameter == 5">
+				AND ODATE BETWEEN TO_DATE('20230601', 'YYYYMMDD') AND TO_DATE('20230630', 'YYYYMMDD')
+			</when>
+			<when test="_parameter == 6">
+				AND ODATE BETWEEN TO_DATE('20230701', 'YYYYMMDD') AND TO_DATE('20230731', 'YYYYMMDD')
+			</when>
+			<when test="_parameter == 7">
+				AND ODATE BETWEEN TO_DATE('20230801', 'YYYYMMDD') AND TO_DATE('20230831', 'YYYYMMDD')
+			</when>
+			<when test="_parameter == 8">
+				AND ODATE BETWEEN TO_DATE('20230901', 'YYYYMMDD') AND TO_DATE('20230930', 'YYYYMMDD')
+			</when>
+			<when test="_parameter == 9">
+				AND ODATE BETWEEN TO_DATE('20231001', 'YYYYMMDD') AND TO_DATE('20231031', 'YYYYMMDD')
+			</when>
+			<when test="_parameter == 10">
+				AND ODATE BETWEEN TO_DATE('20231101', 'YYYYMMDD') AND TO_DATE('20231130', 'YYYYMMDD')
+			</when>
+			<when test="_parameter == 11">
+				AND ODATE BETWEEN TO_DATE('20231201', 'YYYYMMDD') AND TO_DATE('20231231', 'YYYYMMDD')
+			</when>
+			
+		</choose>
+	</select>
+	
+	<select id="getDatetimes" parameterType="Map" resultType="ProductVO">
+		SELECT DISTINCT P.PCODE, P.PNAME, P.PPRICE, O.OCNT, O.OPRICE FROM PRODUCT P, ORDERS O
+		WHERE P.PCODE = O.PCODE
+		AND ODATE BETWEEN TO_DATE(#{startDate}) AND TO_DATE(#{endDate})
+		ORDER BY P.PCODE ASC
+	</select>
+	
+	<!-- <select id="getDatetimes" parameterType="Map" resultType="Map">
+		SELECT * FROM ORDERS O, PRODUCT P
+		WHERE O.PCODE = P.PCODE
+		AND ODATE BETWEEN TO_DATE('20230601') AND TO_DATE('20230630');
+	</select> -->
+</mapper>
+
+
+
+
+
+
+
+
+
+
+

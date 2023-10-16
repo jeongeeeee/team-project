@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="usersDAO">
+	<!-- 회원가입 -->
+	<insert id="insertUserCheck" parameterType="UserVO">
+		INSERT INTO USERS(UCODE, USERID, USERPWD, UNAME, UNICK, UADDR, UGENDER, UEMAIL, UBIRTH, UPHONE) 
+		VALUES ((SELECT NVL (MAX(UCODE), 0) + 1 FROM USERS), #{userId}, 
+				#{userPwd}, #{uname}, 
+				#{unick}, #{uaddr}, 
+				#{ugender}, #{uemail}, 
+				#{ubirth}, #{uphone})
+	</insert>
+	
+	<!-- 아이디 중복 체크 -->
+	<select id="selectUserId" parameterType="String" resultType="int">
+		SELECT COUNT(*) FROM USERS WHERE USERID = #{userId}
+	</select>
+	
+	<!-- 닉네임 중복 체크 -->
+	<select id="selectUserNickname" parameterType="String" resultType="int">
+		SELECT COUNT(*) FROM USERS WHERE UNICK = #{unick}
+	</select>
+	
+	<select id="selectLogin" parameterType="UserVO" resultType="UserVO">
+		SELECT * FROM USERS WHERE USERID = #{userId} AND USERPWD = #{userPwd}
+	</select>
+	
+	<!-- 아이디 찾기 -->
+	<select id="findId" parameterType="UserVO" resultType="String">
+		SELECT USERID FROM USERS 
+      	WHERE UNAME = #{uname} 
+      	AND UPHONE = #{uphone}
+	</select>
+	
+	<!-- 비밀번호 찾기 -->
+	<select id="findPwd" parameterType="UserVO" resultType="String">
+		SELECT USERPWD FROM USERS 
+      	WHERE USERID = #{userId} 
+      	AND UEMAIL = #{uemail}
+	</select>
+	
+	 <!-- 탈퇴시 회원 삭제 처리 -->
+    <delete id="deleteMember" parameterType="UserVO">
+   	  DELETE FROM USERS
+	  WHERE USERID = #{userId} and USERPWD = #{userPwd}
+   	</delete>
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+

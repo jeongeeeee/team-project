@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.spring.huiloaelag.product.dao.MypageDAO">
+
+	<!-- 마이페이지 -->
+	<!-- 주문내역 -->
+	<select id="getOrderList" parameterType="int" resultType="MypageVO">
+      SELECT P.PNAME, P.PCTYIMG, P.PPRICE, O.OCNT, O.ODATE, P.PCODE, U.UCODE
+      FROM ORDERS O, USERS U , PRODUCT P
+      WHERE O.UCODE = U.UCODE 
+      AND P.PCODE = O.PCODE
+      AND O.UCODE = #{uCode}
+   </select>
+	
+	<!-- 회원정보 -->
+	<select id="myUsersInfo" parameterType="string" resultType="UserVO">
+		SELECT * FROM USERS WHERE USERID = #{userId}
+	</select>
+	
+	<!-- 회원정보 수정 -->
+	<update id="updateUser" parameterType="UserVO">
+		UPDATE USERS SET UNICK = #{unick},
+                         UEMAIL = #{uemail},
+                         UPHONE = #{uphone}
+		WHERE UCODE = #{ucode}
+	</update>
+	
+	<!-- 회원정보 삭제 -->
+	<delete id="myUsersDelete" parameterType="string">
+		DELETE FROM USERS WHERE USERID = #{userId}
+	</delete>
+	
+	<!-- 내가 작성한 커뮤니티 -->
+	<select id="myCommunityList" parameterType="int" resultType="CommunityVO">
+		SELECT C.*, U.UNICK FROM COMMUNITY C, USERS U 
+		WHERE C.UCODE = U.UCODE
+		AND C.UCODE = #{uCode}
+		ORDER BY MCODE DESC
+	</select>
+	
+	<!-- 커뮤니티 수정 -->
+	<update id="updateMyComm" parameterType="CommunityVO">
+		UPDATE COMMUNITY SET MTITLE = #{mTitle},
+                         	 MCONTENT = #{mContent}
+		WHERE MCODE = #{mCode}
+	</update>
+	
+	<!-- 커뮤니티 삭제 -->
+	<delete id="deleteCommunity" parameterType="int">
+		DELETE FROM COMMUNITY WHERE UCODE = #{uCode}
+	</delete>
+	
+	<!-- 내가 작성한 문의 -->
+	<select id="myQnaList" parameterType="int" resultType="QnaVO">
+		SELECT Q.*, U.UNAME FROM QNA Q, USERS U 
+		WHERE Q.UCODE = U.UCODE
+		AND Q.UCODE = #{uCode} ORDER BY QCODE DESC
+	</select>
+	
+	<delete id="deleteQnaList" parameterType="int">
+		DELETE FROM QNA WHERE QCODE = #{qCode}
+	</delete>
+	
+	<!-- 문의 수정 -->
+	<update id="updateMyQna" parameterType="QnaVO">
+		UPDATE QNA SET QCONTENT = #{qContent} WHERE QCODE = #{qCode}
+	</update>
+	
+	<!-- 문의 삭제 -->
+	<delete id="deleteQna" parameterType="int">
+		DELETE FROM QNA WHERE UCODE = #{uCode}
+	</delete>
+	
+	<!-- 리뷰 -->
+	<select id="getReviewList" parameterType="int" resultType="ReviewVO">
+		<!-- SELECT * FROM REVIEW WHERE PCODE = #{pCode} ORDER BY RCODE DESC -->
+		SELECT * FROM REVIEW ORDER BY RCODE DESC
+	</select>
+	
+	<select id="getReview" parameterType="ReviewVO" resultType="ReviewVO">
+		SELECT * FROM REVIEW WHERE RCODE = #{rCode}
+	</select>
+	
+	<insert id="insertReview" parameterType="ReviewVO"> 
+		INSERT INTO REVIEW VALUES(REVIEW_SEQ.NEXTVAL, (SELECT USERS.UCODE FROM PRODUCT, USERS WHERE PRODUCT.PCODE = #{pCode} AND USERS.UCODE = #{uCode}), 
+			(SELECT PRODUCT.PCODE FROM PRODUCT, USERS WHERE PRODUCT.PCODE = #{pCode} 
+				AND USERS.UCODE = #{uCode}), #{rStar}, SYSDATE, #{rTitle}, #{rContent})
+	</insert>
+	
+	<update id="updateReview" parameterType="ReviewVO">
+		UPDATE REVIEW
+		SET RTITLE = #{rTitle}, RCONTENT = #{rContent}, rStar = #{rStar}
+		WHERE RCODE = #{rCode}
+	</update>
+	
+	<delete id="deleteReview" parameterType="ReviewVO">
+		DELETE FROM REVIEW WHERE RCODE = #{rCode}
+	</delete>
+
+	<select id="getMyReview" parameterType="int" resultType="ReviewVO">
+		<!-- SELECT * FROM REVIEW WHERE UCODE = #{uCode} -->
+		SELECT REVIEW.RCODE, REVIEW.UCODE, REVIEW.PCODE, REVIEW.RSTAR, REVIEW.RDATE, REVIEW.RTITLE, REVIEW.RCONTENT, PRODUCT.PNAME  
+		FROM REVIEW LEFT OUTER JOIN PRODUCT ON REVIEW.PCODE = PRODUCT.PCODE 
+		WHERE REVIEW.UCODE = #{uCode}
+		ORDER BY REVIEW.RCODE DESC
+	</select>
+	
+</mapper>

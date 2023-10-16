@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.spring.huiloaelag.community.dao.CommunityDAO">
+
+	<!-- 게시물 -->
+	<select id="getCommunityList" parameterType="CommunityVO" resultType="CommunityVO">
+		SELECT * FROM COMMUNITY 
+		WHERE 1=1
+		<choose>
+        	<when test='searchDivision == "MTITLE" and searchKeyword != "" '>
+        		AND MTITLE LIKE '%'|| #{searchKeyword} ||'%'
+        	</when>
+        	<when test='searchDivision == "MCONTENT" and searchKeyword != "" '>
+        		AND MCONTENT LIKE '%'|| #{searchKeyword} ||'%'
+        	</when>
+        </choose>
+		ORDER BY MCODE DESC
+	</select>
+	
+	<select id="getBoardList_T" parameterType="string" resultType="CommunityVO">
+		SELECT * FROM COMMUNITY
+		WHERE MTITLE LIKE '%'|| #{searchKeyword} ||'%'
+		ORDER BY MCODE DESC
+	</select>
+	<select id="getBoardList_C" parameterType="string" resultType="CommunityVO">
+		SELECT * FROM COMMUNITY
+		WHERE MCONTENT LIKE '%'|| #{searchKeyword} ||'%'
+		ORDER BY MCODE DESC
+	</select>
+	
+	<select id="getCommunity" parameterType="CommunityVO" resultType="CommunityVO">
+		SELECT COMMUNITY.MCODE, COMMUNITY.UCODE, COMMUNITY.MTITLE, COMMUNITY.MCONTENT, COMMUNITY.MDATE, COMMUNITY.MPWD, COMMUNITY.MGOOD, USERS.UNICK FROM COMMUNITY JOIN USERS 
+       ON COMMUNITY.UCODE = USERS.UCODE
+      WHERE MCODE = #{mCode}
+	</select>
+	
+	
+	<insert id="insertCommunity" parameterType="CommunityVO">
+		INSERT INTO COMMUNITY(MCODE, UCODE, MTITLE, MCONTENT, MDATE, MPWD, MGOOD) 
+			VALUES(COMMUNITY_SEQ.NEXTVAL, #{uCode}, #{mTitle}, #{mContent}, SYSDATE, #{mPwd}, 0)
+	</insert>
+	
+	<update id="updateCommunity" parameterType="CommunityVO">
+		UPDATE COMMUNITY 
+		SET MTITLE = #{mTitle}, 
+		    MCONTENT = #{mContent} 
+		WHERE MCODE = #{mCode} 
+	</update>
+	
+	<delete id="deleteCommunity" parameterType="CommunityVO">
+		DELETE FROM COMMUNITY WHERE MPWD = #{mPwd} AND MCODE = {mCode}
+	</delete>
+	
+	<!-- 좋아요(공감) -->
+	<update id="insertLike" parameterType="String">
+		UPDATE COMMUNITY 
+		SET MGOOD = MGOOD+1 
+		WHERE MCODE = #{mCode} 
+	</update>
+	
+	<!-- 좋아요 갯수 -->
+	<select id="selectLike" parameterType="String" resultType="int">
+		SELECT MGOOD 
+		FROM COMMUNITY 
+		WHERE MCODE = #{mCode}
+	</select>
+	
+	<!-- 게시글 당 댓글 보기 -->
+	<select id="getCommentsList" parameterType="CommentsVO" resultType="CommentsVO">
+		<!-- SELECT * FROM COMMENTS 
+		WHERE MCODE = #{mCode} 
+		ORDER BY CMTCODE DESC -->
+		SELECT COMMENTS.CMTCODE, USERS.UCODE, COMMENTS.MCODE, COMMENTS.CMTCONTENT, COMMENTS.CMTPWD, USERS.UNICK
+		FROM COMMENTS JOIN USERS ON COMMENTS.UCODE = USERS.UCODE
+		WHERE MCODE = #{mCode} 
+		ORDER BY CMTCODE DESC
+	</select>
+	
+	<!-- 댓글 입력  -->
+	<insert id="insertComment" parameterType="CommentsVO">
+		INSERT INTO COMMENTS 
+		VALUES(COMMENT_SEQ.NEXTVAL, #{uCode}, #{mCode}, #{cmtContent}, #{cmtPwd})
+	</insert>
+	
+	<!-- 단일 댓글 -->
+	<select id="getComment" parameterType="String" resultType="String">
+		SELECT CMTPWD
+		FROM COMMENTS
+		WHERE CMTCODE = #{cmtCode}
+	</select>
+	
+	<!-- 댓글 수정 -->
+	<update id="updateComment" parameterType="CommentsVO">
+		UPDATE COMMENTS SET CMTCONTENT = #{cmtContent} WHERE CMTCODE = #{cmtCode}
+	</update>
+	
+	<!-- 댓글 삭제 -->
+	<delete id="deleteComment" parameterType="CommentsVO">
+		DELETE FROM COMMENTS WHERE CMTCODE = #{cmtCode} AND CMTPWD = #{cmtPwd}
+	</delete>
+	
+	<!-- uCode찾기 -->
+	<select id="getUserCode" parameterType="String" resultType="int">
+		SELECT UCODE FROM USERS WHERE USERID = #{userId}
+	</select>
+	
+	<!-- 페이징처리 -->
+	<select id="getCommunityListAll" parameterType="PagingVO" resultType="CommunityVO">
+		SELECT * FROM (
+		    SELECT ROWNUM RN, A.* 
+		    FROM (
+		        <!-- SELECT * FROM COMMUNITY 
+		        WHERE 1=1 -->
+		        SELECT COMMUNITY.MCODE, COMMUNITY.UCODE, COMMUNITY.MTITLE, COMMUNITY.MCONTENT, COMMUNITY.MDATE, COMMUNITY.MPWD, COMMUNITY.MGOOD, USERS.UNICK
+				FROM COMMUNITY LEFT JOIN USERS ON COMMUNITY.UCODE = USERS.UCODE
+				WHERE 1=1
+		        <choose>
+		        	<when test='searchDivision == "MTITLE" and searchKeyword != "" '>
+		        		AND MTITLE LIKE '%'|| #{searchKeyword} ||'%'
+		        	</when>
+		        	<when test='searchDivision == "MCONTENT" and searchKeyword != "" '>
+		        		AND MCONTENT LIKE '%'|| #{searchKeyword} ||'%'
+		        	</when>
+		        </choose>
+		        ORDER BY MCODE DESC
+		    )A
+		)
+		WHERE RN BETWEEN #{sqlStart} AND #{sqlEnd}
+	</select>
+	
+</mapper>
+
+
+
+
+
+
+
+
+
+
+

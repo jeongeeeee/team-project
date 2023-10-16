@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mybatis-spring="http://mybatis.org/schema/mybatis-spring"
+	xsi:schemaLocation="http://mybatis.org/schema/mybatis-spring http://mybatis.org/schema/mybatis-spring-1.2.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
+	
+	<context:component-scan base-package="com.spring.huiloaelag" />
+
+	<!-- === Spring JDBC 관련 설정 === -->
+	<!-- DataSource 설정  -->
+	<bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource"
+			destroy-method="close">
+			
+		<property name="driverClassName" value="oracle.jdbc.OracleDriver" />
+		<property name="url" value="jdbc:oracle:thin:@localhost:1521:xe" />
+		<property name="username" value="project" />
+		<property name="password" value="projectpw" />	
+		
+		<!-- <property name="driverClassName" value="oracle.jdbc.OracleDriver" />
+		<property name="url" value="jdbc:oracle:thin:@localhost:1521:xe" />
+		<property name="username" value="MEMBER" />
+		<property name="password" value="1234" /> -->
+	</bean>
+	
+	<!-- ============================== -->
+	<!-- 마이바티스-스프링 연동 설정 -->
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<property name="configLocation" value="classpath:config.xml" />
+		<property name="mapperLocations" value="classpath:mappings/**/*mapper.xml" />
+	</bean>
+	
+	<bean class="org.mybatis.spring.SqlSessionTemplate">
+		<constructor-arg ref="sqlSessionFactory" />
+	</bean>
+	
+	<mybatis-spring:scan base-package="com.spring.huiloaelag.**.dao"/>
+</beans>

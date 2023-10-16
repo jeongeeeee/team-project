@@ -1,0 +1,261 @@
+@charset "UTF-8";
+
+@font-face {
+  font-family: "SCoreDream";
+  font-weight: 100;
+  font-style: normal;
+  src: url(https://cdn.jsdelivr.net/gh/webfontworld/SCoreDream/SCoreDream1.woff2)
+      format("woff2"),
+    url(https://cdn.jsdelivr.net/gh/webfontworld/SCoreDream/SCoreDream1.woff)
+      format("woff");
+  font-display: swap;
+}
+@font-face {
+  font-family: "SCoreDream";
+  font-weight: 200;
+  font-style: normal;
+  src: url(https://cdn.jsdelivr.net/gh/webfontworld/SCoreDream/SCoreDream2.woff2)
+      format("woff2"),
+    url(https://cdn.jsdelivr.net/gh/webfontworld/SCoreDream/SCoreDream2.woff)
+      format("woff");
+  font-display: swap;
+}
+@font-face {
+  font-family: "SCoreDream";
+  font-weight: 300;
+  font-style: normal;
+  src: url(https://cdn.jsdelivr.net/gh/webfontworld/SCoreDream/SCoreDream3.woff2)
+      format("woff2"),
+    url(https://cdn.jsdelivr.net/gh/webfontworld/SCoreDream/SCoreDream3.woff)
+      format("woff");
+  font-display: swap;
+}
+@font-face {
+  font-family: "SCoreDream";
+  font-weight: 400;
+  font-style: normal;
+  src: url(https://cdn.jsdelivr.net/gh/webfontworld/SCoreDream/SCoreDream4.woff2)
+      format("woff2"),
+    url(https://cdn.jsdelivr.net/gh/webfontworld/SCoreDream/SCoreDream4.woff)
+      format("woff");
+  font-display: swap;
+}
+@font-face {
+  font-family: "SCoreDream";
+  font-weight: 500;
+  font-style: normal;
+  src: url(https://cdn.jsdelivr.net/gh/webfontworld/SCoreDream/SCoreDream5.woff2)
+      format("woff2"),
+    url(https://cdn.jsdelivr.net/gh/webfontworld/SCoreDream/SCoreDream5.woff)
+      format("woff");
+  font-display: swap;
+}
+@font-face {
+  font-family: "SCoreDream";
+  font-weight: 600;
+  font-style: normal;
+  src: url(https://cdn.jsdelivr.net/gh/webfontworld/SCoreDream/SCoreDream6.woff2)
+      format("woff2"),
+    url(https://cdn.jsdelivr.net/gh/webfontworld/SCoreDream/SCoreDream6.woff)
+      format("woff");
+  font-display: swap;
+}
+@font-face {
+  font-family: "SCoreDream";
+  font-weight: 700;
+  font-style: normal;
+  src: url(https://cdn.jsdelivr.net/gh/webfontworld/SCoreDream/SCoreDream7.woff2)
+      format("woff2"),
+    url(https://cdn.jsdelivr.net/gh/webfontworld/SCoreDream/SCoreDream7.woff)
+      format("woff");
+  font-display: swap;
+}
+@font-face {
+  font-family: "SCoreDream";
+  font-weight: 800;
+  font-style: normal;
+  src: url(https://cdn.jsdelivr.net/gh/webfontworld/SCoreDream/SCoreDream8.woff2)
+      format("woff2"),
+    url(https://cdn.jsdelivr.net/gh/webfontworld/SCoreDream/SCoreDream8.woff)
+      format("woff");
+  font-display: swap;
+}
+@font-face {
+  font-family: "SCoreDream";
+  font-weight: 900;
+  font-style: normal;
+  src: url(https://cdn.jsdelivr.net/gh/webfontworld/SCoreDream/SCoreDream9.woff2)
+      format("woff2"),
+    url(https://cdn.jsdelivr.net/gh/webfontworld/SCoreDream/SCoreDream9.woff)
+      format("woff");
+  font-display: swap;
+}
+
+*{margin: 0; padding: 0;}
+a{text-decoration: none; color: #333;}
+li{list-style: none;}
+body{font-size: 13px; color: #333;  font-family: "SCoreDream";}
+
+.container{
+	width: 1180px;
+	margin: 0 auto;
+}
+
+#my_menu{
+	width: 150px;
+	height: 100%;
+	background-color: #f9f9f9;
+	border: 1px solid #e1e1e1;
+	padding: 10px 0;
+	float: left;
+	box-sizing: border-box;
+	margin: 30px 0;
+}
+.my_nav{
+	border-bottom: 1px solid #e1e1e1;
+	border-collapse: collapse;
+	box-sizing: border-box;
+	padding: 15px;
+}
+.my_nav:last-child {
+	border-bottom: none;
+}
+.my_nav_title{
+	font-size: 15px;
+	font-weight: 700;
+	padding-bottom: 5px;
+}
+.my_nav_menu li{
+	padding: 3px;
+}
+.my_nav_menu a:hover{
+	color:#d9652d;
+	font-weight: 500;
+}
+.content{
+	width: 1030px;
+	box-sizing: border-box;
+	float: right;
+	padding: 30px;
+}
+/* 주문목록 */
+h2{
+	padding-bottom: 10px;
+	font-weight: 700;
+	font-size: 20px;
+}
+.content_box{
+	border: 1px solid #e1e1e1;
+	padding: 35px 45px;
+	box-sizing: border-box;
+	border-radius: 15px;
+}
+.oneOrder{
+	margin-bottom: 30px;
+}
+.oneOrder:last-child{
+	margin-bottom: 0;
+}
+.proOrder{
+	border: 1px solid #e1e1e1;
+	box-sizing: border-box;
+	border-radius: 10px;
+	padding: 30px;
+}
+.order_date p{
+	font-size: 18px;
+	font-weight: 500;
+	padding-bottom: 10px;
+}
+.proOrder_img img {
+	border-radius: 5px;
+}
+.proOrder_img {
+	float: le
+}
+.proOrder_np p{
+	float: left;
+}
+.proOrder_review{
+	width: 70px;
+	padding: 10px;
+	border-radius: 5px;
+	border: 1px solid #6D3114;
+	text-align: center;
+	color: #6D3114;
+	
+}
+.proOrder_review a{
+	font-weight: 500;
+	font-size: 15px;
+	line-height: 15px;
+}
+
+/* 커뮤니티 */
+
+/* 리뷰 */
+
+/* QNA */
+
+/* 회원정보수정 */
+#texte{
+	font-size: 18px;
+}
+#texte form{
+	width: 500px;
+	margin: 0 auto;
+}
+#texte b{
+	padding: 10px;
+	padding-right: 40px;
+}
+#texte b:nth-child(6) {
+	padding-right: 52px;
+}
+
+.btn{
+	width: 50px;
+	height: 30px;
+	background-color: #fff;
+	border: 1px solid #6D3114;
+	color: #6D3114;
+	font-size: 15px;
+	font-weight: 900;
+	border-radius: 5px;
+	margin: 20px 180px 0 180px;
+	text-align: center;
+}
+.btn:hover{
+	background-color:#6D3114;
+	color: #fff; 
+}
+/* 회원탈퇴 */
+.cancle_box{
+	margin: 0 auto;
+	padding: 40px;
+	text-align: center;
+}
+.cancle_box p{
+	font-size: 18px;
+	font-weight: 400;
+	margin: 10px 0;
+}
+#setPwd{
+	width: 100px;
+	height: 25px;
+}
+.passBtn{
+	margin-left: 5px;
+	width: 50px;
+	height: 30px;
+	background-color: #fff;
+	border: 1px solid #6D3114;
+	color: #6D3114;
+	font-size: 15px;
+	font-weight: 900;
+	border-radius: 5px;
+}
+.passBtn:hover{
+	background-color:#6D3114;
+	color: #fff; 
+}

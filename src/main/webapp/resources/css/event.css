@@ -1,0 +1,126 @@
+.EventWrapper {
+  width: 100%;
+}
+
+.EventWrapper .event-list-box {
+  width: 1080px;
+  margin: 0px auto;
+  padding: 50px 0px;
+}
+
+@media (max-width: 886px) {
+  .EventWrapper .event-list-box {
+    width: 100%;
+    padding: 30px 0px;
+  }
+}
+
+@media (max-width: 1180px) {
+  .EventWrapper .event-list-box {
+    padding: 30px 0px;
+  }
+}
+
+.eventBanner {
+  border-radius: 30px;
+}
+
+.ebr001 {
+  width: 100%;
+  height: 260px;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: 0% 50%;
+  margin-bottom: 30px;
+  background-image: url(../img/eventPageBanner001.png);
+}
+
+@media (max-width: 886px) {
+  .ebr001 {
+    height: 158px;
+    width: 100%;
+    background-size: cover;
+    background-position: 0%;
+    background-image: url(../img/eventPageBanner001.png);
+  }
+}
+
+.ebr002 {
+  width: 100%;
+  height: 260px;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: 50%;
+  margin-bottom: 30px;
+  background-image: url(../img/eventPageBanner002.png);
+}
+
+@media (max-width: 886px) {
+  .ebr002 {
+    height: 158px;
+    width: 100%;
+    background-size: cover;
+    background-position: 0%;
+    background-image: url(../img/eventPageBanner002.png);
+  }
+}
+
+.ebr003 {
+  width: 100%;
+  height: 260px;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: 0% 50%;
+  margin-bottom: 30px;
+  background-image: url(../img/eventPageBanner003.png);
+}
+
+@media (max-width: 886px) {
+  .ebr003 {
+    height: 158px;
+    width: 100%;
+    background-size: cover;
+    background-position: 0%;
+    background-image: url(../img/eventPageBanner003.png);
+  }
+}
+
+.ebr004 {
+  width: 100%;
+  height: 260px;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: 0% 50%;
+  margin-bottom: 30px;
+  background-image: url(../img/eventPageBanner004.png);
+}
+
+@media (max-width: 886px) {
+  .ebr004 {
+    height: 158px;
+    width: 100%;
+    background-size: cover;
+    background-position: 0%;
+    background-image: url(../img/eventPageBanner004.png);
+  }
+}
+
+.ebr005 {
+  width: 100%;
+  height: 260px;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: 50%;
+  margin-bottom: 30px;
+  background-image: url(../img/eventPageBanner005.png);
+}
+
+@media (max-width: 886px) {
+  .ebr005 {
+    height: 158px;
+    width: 100%;
+    background-size: cover;
+    background-position: 0%;
+    background-image: url(../img/eventPageBanner005.png);
+  }
+}

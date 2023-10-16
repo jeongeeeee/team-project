@@ -1,0 +1,101 @@
+SELECT PNAME, PPRICE, OPRICE FROM ORDERS JOIN PRODUCT
+ON ORDERS.PCODE = PRODUCT.PCODE
+; -> 매출정보(품명,금액, 총금액)
+
+product---------------------------------
+-- 탁주
+INSERT INTO PRODUCT VALUES(101, '돌배 아랑주 X 3병', 15000, '주종:탁주 도수:6.00% 용량:750ml', 'pImg_takju001.jpg', 'pdetailImg_takju001.png', 'pcty_takju001.jpg', 3, 2, 3);
+INSERT INTO PRODUCT VALUES(102, '백련 미스티 살균 막걸리', 4500, '주종:살균탁주 도수:7.00% 용량:375ml', 'pImg_takju002.jpg', 'pdetailImg_takju002.png', 'pcty_takju002.jpg', 3, 4, 2);
+INSERT INTO PRODUCT VALUES(103, '얼떨결에 퍼플 X 3병', 27900, '주종:살균탁주 도수:6.00% 용량:375ml', 'pImg_takju002.jpg', 'pdetailImg_takju002.png', 'pcty_takju002.jpg', 3, 3, 3);
+INSERT INTO PRODUCT VALUES(104, '표문 막걸리 X 4병', 14000, '주종:탁주 도수:6.00% 용량:500ml', 'pImg_takju002.jpg', 'pdetailImg_takju002.png', 'pcty_takju002.jpg', 4, 4, 2);
+INSERT INTO PRODUCT VALUES(105, '오희', 22000, '주종:탁주 도수:8.50% 용량:500ml', 'pImg_takju002.jpg', 'pdetailImg_takju002.png', 'pcty_takju002.jpg', 4, 4, 2);
+INSERT INTO PRODUCT VALUES(106, '말이야막걸리야 3L 대용량(케그+미니탭) 토란 막걸리 들어', 50000, '주종:탁주 도수:6.00% 용량:3000ml', 'pImg_takju003.jpg', 'pdetailImg_takju003.png', 'pcty_takju003.jpg', 2, 1, 2);
+INSERT INTO PRODUCT VALUES(107, '호호', 15000, '주종:탁주 도수:9.00% 용량:375ml', 'pImg_takju007.jpg', 'pdetailImg_takju007.png', 'pcty_takju007.jpg', 3, 3, 4);
+INSERT INTO PRODUCT VALUES(108, 'DOK 애플 막걸리 X 3병', 13500, '주종:탁주 도수:6.00% 용량:500ml', 'pImg_takju008.jpg', 'pdetailImg_takju008.png', 'pcty_takju008.jpg', 4, 2, 3);
+INSERT INTO PRODUCT VALUES(109, '서촌막걸리 12%', 15000, '주종:탁주 도수:12.00% 용량:500ml', 'pImg_takju009.jpg', 'pdetailImg_takju009.png', 'pcty_takju009.jpg', 2, 4, 4);
+INSERT INTO PRODUCT VALUES(110, '배금도가 수제 막걸리', 7500, '주종:탁주 도수:12.00% 용량:500ml', 'pImg_takju009.jpg', 'pdetailImg_takju009.png', 'pcty_takju009.jpg', 2, 4, 4);
+
+--약주
+INSERT INTO PRODUCT VALUES(201, '한영석 청명주', 28000, '주종:약주 도수:13.80% 용량:375ml', 'pImg001_yakju.jpg', 'pdetailImg_yakju001.png', 'pcty_yakju001.jpg', 3, 4, 3);
+INSERT INTO PRODUCT VALUES(202, '제주 오메기 맑은 술', 2000, '주종:약주 도수:12.00% 용량:375ml', 'pImg002_yakju.jpg', 'pdetailImg_yakju002.png', 'pcty_yakju002.jpg', 4, 2, 4);
+INSERT INTO PRODUCT VALUES(203, '만다린 약주', 15900, '주종:약주 도수:12.00% 용량:375ml', 'pImg002_yakju.jpg', 'pdetailImg_yakju002.png', 'pcty_yakju002.jpg', 4, 4, 2);
+INSERT INTO PRODUCT VALUES(204, '청주신선주 약주 16%', 30000, '주종:약주 도수:16.00% 용량:500ml', 'pImg003_yakju.jpg', 'pdetailImg_yakju003.png', 'pcty_yakju003.jpg', 3, 4, 3);
+INSERT INTO PRODUCT VALUES(205, '세종대왕어주 약주', 33000, '주종:약주 도수:15.00% 용량:500ml', 'pImg004_yakju.jpg', 'pdetailImg_yakju004.png', 'pcty_yakju004.jpg', 2, 1, 4);
+INSERT INTO PRODUCT VALUES(206, '경성 과하주', 30000, '주종:약주 도수:20.00% 용량:375ml', 'pImg005_yakju.jpg', 'pdetailImg_yakju005.png', 'pcty_yakju005.jpg', 5, 1, 4);
+INSERT INTO PRODUCT VALUES(207, '청비성', 24000, '주종:약주 도수:16.00% 용량:500ml', 'pImg007_yakju.jpg', 'pdetailImg_yakju007.png', 'pcty_yakju007.jpg', 3, 4, 4);
+INSERT INTO PRODUCT VALUES(208, '나주 배 약주', 25000, '주종:약주 도수:15.00% 용량:500ml', 'pImg008_yakju.jpg', 'pdetailImg_yakju008.png', 'pcty_yakju008.jpg', 4, 2, 3);
+INSERT INTO PRODUCT VALUES(209, '우리술 오늘 약주', 25000, '주종:약주 도수:15.00% 용량:700ml', 'pImg009_yakju.jpg', 'pdetailImg_yakju009.png', 'pcty_yakju009.jpg', 3, 4, 3);
+INSERT INTO PRODUCT VALUES(210, '동짓달 기나긴 밤', 40000, '주종:약주 도수:16.00% 용량:500ml', 'pImg010_yakju.jpg', 'pdetailImg_yakju010.png', 'pcty_yakju010.jpg', 3, 3, 4);
+
+--과실주
+INSERT INTO PRODUCT VALUES(301, '고도리 샤인머스켓 와인(망고포도)', 38000, '주종:과실주 도수:10.50% 용량: 375ml', 'pImg_gwasilju001.jpg', 'pDetailImg_gwasilju001.png', 'category_gwasilju001.jpg', 4, 3, 3);
+INSERT INTO PRODUCT VALUES(302, '고도리 복숭아 와인', 38000, '주종:과실주 도수:6.50% 용량: 375ml', 'pImg_gwasilju002.jpg', 'pDetailImg_gwasilju002.png', 'category_gwasilju002.jpg', 4, 4, 2);
+INSERT INTO PRODUCT VALUES(303, '길벗 아펠바인 사과와인 드라이', 30000, '주종: 과실주 도수:7% 용량: 750ml', 'pImg_gwasilju003.jpg', 'pDetailImg_gwasilju003.png', 'category_gwasilju003.jpg', 1, 4, 2);
+INSERT INTO PRODUCT VALUES(304, '고도리 자두 와인', 25000, '주종:과실주 도수:11.50% 용량: 375ml', 'pImg_gwasilju004.jpg', 'pDetailImg_gwasilju004.png', 'category_gwasilju004.jpg', 3, 4, 4);
+INSERT INTO PRODUCT VALUES(305, '제주, 유채', 12000, '주종: 과실주 도수:14% 용량: 375ml', 'pImg_gwasilju005.jpg', 'pDetailImg_gwasilju005.png', 'category_gwasilju005.jpg', 4, 2, 2);
+INSERT INTO PRODUCT VALUES(306, '요새로제', 17900, '주종: 과실주 도수:6.40% 용량: 750ml', 'pImg_gwasilju006.jpg', 'pDetailImg_gwasilju006.png', 'category_gwasilju006.jpg', 4, 4, 3);
+INSERT INTO PRODUCT VALUES(307, '부안 해풍 오디주', 12000, '주종: 과실주 도수:12.00% 용량: 375ml', 'pImg_gwasilju007.jpg', 'pDetailImg_gwasilju007.png', 'category_gwasilju007.jpg', 4, 3, 3);
+INSERT INTO PRODUCT VALUES(308, '264 청포도 와인 절정(Medium Dry)', 19000, '주종: 과실주 도수:13.50% 용량: 375ml', 'pImg_gwasilju008.jpg', 'pDetailImg_gwasilju008.png', 'category_gwasilju008.jpg', 2, 4, 3);
+INSERT INTO PRODUCT VALUES(309, '프렌치 린넨 사이더', 17900, '주종: 과실주 도수:4.7% 용량: 750ml', 'pImg_gwasilju009.jpg', 'pDetailImg_gwasilju009.png', 'category_gwasilju009.jpg', 3, 4, 3);
+INSERT INTO PRODUCT VALUES(310, '제주, 동백', 12000, '주종: 과실주 도수:14% 용량: 375ml', 'pImg_gwasilju010.jpg', 'pDetailImg_gwasilju010.png', 'category_gwasilju010.jpg', 4, 2, 2);
+
+--증류주
+INSERT INTO PRODUCT VALUES(401, '보은 송로주', 24000, '주종:일반증류주 도수:40.00% 용량:700ml', 'pImg_jeunglyuju001.jpg', 'pDetailImg_jeunglyuju001.png', 'category_jeunglyuju001.jpg', 5, 1, 4);
+INSERT INTO PRODUCT VALUES(402, '안동 국화주 32%', 11800, '주종:증류식소주 도수:32.00% 용량:375ml', 'pImg_jeunglyuju002.jpg', 'pDetailImg_jeunglyuju002.png', 'category_jeunglyuju002.jpg', 1, 1, 3);
+INSERT INTO PRODUCT VALUES(403, '안동소주 일품 40% 골드', 27000, '주종:증류식소주 도수:40.00% 수량:500ml', 'pImg_jeunglyuju003.jpg', 'pDetailImg_jeunglyuju003.png', 'category_jeunglyuju003.jpg', 1, 3, 4);
+INSERT INTO PRODUCT VALUES(404, '박재서 명인안동소주 35%', 7500, '주종:증류식소주 도수:35% 용량:360ml', 'pImg_jeunglyuju004.jpg', 'pDetailImg_jeunglyuju004.png', 'category_jeunglyuju004.jpg', 2, 1, 2);
+INSERT INTO PRODUCT VALUES(405, '진도 아리랑 홍주 40%', 17900, '주종:리큐르 도수:40.00% 용량:375ml', 'pImg_jeunglyuju005.jpg', 'pDetailImg_jeunglyuju005.png', 'category_jeunglyuju005.jpg', 5, 1, 3);
+INSERT INTO PRODUCT VALUES(406, '병영소주', 30000, '주종:증류식소주 도수:40.00% 용량:500ml', 'pImg_jeunglyuju006.jpg', 'pDetailImg_jeunglyuju006.png', 'category_jeunglyuju006.jpg', 2, 2, 4);
+INSERT INTO PRODUCT VALUES(407, '한주 35%', 14800, '주종:증류식소주 도수:35.00% 용량:360ml', 'pImg_jeunglyuju007.jpg', 'pDetailImg_jeunglyuju007.png', 'category_jeunglyuju007.jpg', 1, 4, 4);
+INSERT INTO PRODUCT VALUES(408, '김포 특주', 43000, '주종:증류식소주 도수:40.00% 용량 : 200ml', 'pImg_jeunglyuju008.jpg', 'pDetailImg_jeunglyuju008.png', 'category_jeunglyuju008.jpg', 1, 3, 4);
+INSERT INTO PRODUCT VALUES(409, '서울의 밤 25%', 7900, '주종:리큐르 도수:25.00% 용량:375ml', 'pImg_jeunglyuju009.jpg', 'pDetailImg_jeunglyuju009.png', 'category_jeunglyuju009.jpg', 5, 1, 3);
+INSERT INTO PRODUCT VALUES(410, '서울고량주 레드', 13000, '주종:일반증류주 도수:35.00% 용량:375ml', 'pImg_jeunglyuju010.jpg', 'pDetailImg_jeunglyuju010.png', 'category_jeunglyuju010.jpg', 1, 3, 3);
+
+-----------------------------------------------------------------
+INSERT INTO PRODUCT 
+VALUES(101, '돌배 아랑주 X 3병', 15000, '주종:탁주 도수:6.00% 용량:750ml', 
+'pImg_takju001.jpg', 'pdetailImg_takju001.png', 'pcty_takju001.jpg', 3, 2, 3, 'JLD');
+
+SELECT MAX(PCODE) FROM PRODUCT
+WHERE PCODE LIKE '100%'
+;
+SELECT * FROM PRODUCT WHERE PCODE = 101;
+INSERT INTO PRODUCT 
+VALUES((SELECT MAX(PCODE) FROM PRODUCT
+WHERE PCODE LIKE '3%'
+)+1, 
+'돌배 아랑주 X 3병', 15000, '주종:탁주 도수:6.00% 용량:750ml', 
+'pImg_takju001.jpg', 'pdetailImg_takju001.png', 'pcty_takju001.jpg', 3, 2, 3, 'JLD');
+
+--------------------------------------------------------------
+SELECT * FROM (
+SELECT ROWNUM RN, A.*
+FROM (
+    SELECT U.USERID, R.RDATE, P.PCODE, P.PNAME, R.RCONTENT, R.RTITLE 
+    FROM REVIEW R,
+        USERS U,
+        PRODUCT P
+    WHERE R.UCODE = U.UCODE
+    AND   R.PCODE = P.PCODE
+    ORDER BY RDATE DESC
+) A
+)
+WHERE RN BETWEEN 1 AND 5;
+
+INSERT INTO REVIEW
+VALUES (123, 23, 101, 3, SYSDATE, '굿', '구웃', '테스트');
+
+INSERT INTO REVIEW
+VALUES (124, 24, 101, 3, SYSDATE, '굿', '구웃', '테스트');
+
+INSERT INTO REVIEW
+VALUES (125, 25, 101, 3, SYSDATE, '굿', '구웃', '테스트');
+
+INSERT INTO REVIEW
+VALUES (126, 27, 102, 3, SYSDATE, '굿', '구웃', '테스트');
+
+INSERT INTO REVIEW
+VALUES (127, 28, 102, 3, SYSDATE, '굿', '구웃', '테스트');
+     
+INSERT INTO REVIEW
+VALUES (128, 28, 103, 3, SYSDATE, '굿', '구웃', '테스트');

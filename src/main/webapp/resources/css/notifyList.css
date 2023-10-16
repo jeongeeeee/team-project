@@ -1,0 +1,87 @@
+@charset "UTF-8";
+
+.info {
+	width: 1080px;
+	background-color: #eee;
+	border-radius: 10px;
+	margin: 30px auto;
+	text-align: left;
+	padding: 20px 30px;
+}
+
+.info p {
+	font-size: 24px;
+	font-weight: 700;
+	color: #333;
+}
+
+/* ----------- */
+.panel-faq-title {
+	cursor: pointer;
+	color: #121212;
+	font-weight: 500;
+	padding: 17px 3px;
+	font-size: 15px;
+}
+
+.panel-faq-answer {
+	height: 0;
+	overflow: hidden;
+	transition: all ease-in-out 0.2s;
+}
+
+.active {
+	display: block;
+	height: 100%;
+}
+
+/***************/
+.content {
+	width: 1080px;
+	margin: 0 auto;
+	text-align: center;
+	padding-top: 42px;
+}
+
+.parent {
+	width: 100%;
+	margin: 0 auto;
+	min-height: 600px;
+}
+
+.nContent {
+	word-wrap: normal;
+	word-break: keep-all;
+	font-weight: 400;
+	font-size: 15px;
+	text-align: left;
+	border-top: 1px solid #ebebeb;
+	padding: 37px 13px;
+}
+
+.content table {
+	font-weight: 500;
+}
+
+/* 게시판 스타일 */
+th, td {
+	border: 1px solid #e1e1e1;
+	padding: 12px 22px;
+	border-right: none;
+	border-left: none;
+}
+
+.content .text-center {
+	font-weight: 500;
+	margin: 0 auto;
+	color: #121212;
+	font-size: 15px;
+}
+
+thead>tr>th {
+	font-size: 18px;
+	border-bottom: 2px solid #6D3114;
+	border-top: 2px solid #6D3114;
+	font-weight: 600;
+	color: #121212;
+}

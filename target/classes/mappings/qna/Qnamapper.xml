@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.spring.huiloaelag.qna.dao.QnaDAO">
+
+	<select id="getQnaTotalCount" resultType="int">
+		SELECT COUNT(*) AS CNT FROM QNA
+	</select>
+	<select id="getQnAList" parameterType="PagingVO" resultType="QnaVO">
+		SELECT * 
+		  FROM (
+		  SELECT ROWNUM RN, A.* 
+		    FROM (
+			    SELECT Q.*, U.UNAME
+			          	FROM QNA Q, USERS U
+			          	WHERE Q.UCODE = U.UCODE
+			            <if test='searchDivision == "NAME" and searchKeyword != "" '>
+							AND U.UNAME LIKE '%'|| #{searchKeyword} ||'%'
+						</if>
+			    ORDER BY QCODE DESC
+		    )A
+		) 
+		WHERE RN BETWEEN #{sqlStart} AND #{sqlEnd}
+	</select>
+	
+	<select id="getQnaList" parameterType="QnaVO" resultType="QnaVO">
+		SELECT * FROM QNA Q, USERS U
+		WHERE Q.UCODE = U.UCODE
+		<if test='searchDivision == "NAME" and searchKeyword != "" '>
+			AND U.UNAME LIKE '%'|| #{searchKeyword} ||'%'
+		</if>
+		ORDER BY QCODE DESC
+	</select>
+	
+	<select id="getQna" parameterType="int" resultType="QnaVO">
+		SELECT * FROM QNA Q, USERS U
+		WHERE Q.UCODE = U.UCODE AND Q.QCODE = #{qCode}
+	</select>
+	
+	<insert id="insertQna" parameterType="QnaVO">
+		INSERT INTO QNA(QCODE, UCODE, QTITLE, QCONTENT, QPWD, QDATE, QCOMMENT)
+		VALUES((SELECT NVL(MAX(QCODE),0) + 1 FROM QNA), #{uCode}, #{qTitle}, #{qContent}, #{qPwd}, SYSDATE, #{qComment})
+	</insert>
+	
+	<update id="updateQna" parameterType="QnaVO">
+		UPDATE QNA SET QCONTENT = #{qContent}, QDATE = SYSDATE
+		WHERE QCODE = #{qCode}
+	</update>
+	
+	<delete id="deleteQna" parameterType="int">
+		DELETE FROM QNA WHERE QCODE = #{qCode}
+	</delete>
+	
+	<!-- 지역별 카테고리 내용!!! -->
+	<select id="getAreaList" parameterType="string" resultType="ProductVO">
+		SELECT * FROM PRODUCT WHERE PLOCAL = #{plocal}
+	</select>
+	
+	<!-- Q&A UCODE찾기 -->
+	<select id="getUserCode" parameterType="String" resultType="UserVO">
+		SELECT * FROM USERS WHERE USERID = #{userId}
+	</select>
+	
+	<!-- 장바구니!!! -->	
+	<select id="getCartList" parameterType="int" resultType="CartVO">
+		SELECT * FROM CART C, USERS U, PRODUCT P 
+		WHERE C.UCODE = U.UCODE
+		AND C.PCODE = P.PCODE
+		AND U.UCODE = #{uCode}
+		ORDER BY CCODE DESC
+	</select>
+	
+	<!-- 장바구니 바로가기 -->
+	<select id="getCartOneList" parameterType="int" resultType="ProductVO">
+		SELECT * FROM PRODUCT WHERE PCODE = #{pCode}
+	</select>
+	
+	<select id="getUserOneList" parameterType="int" resultType="UserVO">
+		SELECT * FROM USERS WHERE UCODE = #{uCode}
+	</select>
+	<!-- 여기까지 -->
+	
+	<update id="plusCartCnt" parameterType="int">
+		UPDATE CART 
+		SET CCNT = CCNT + 1
+		WHERE CCODE = #{cCode}
+	</update>
+
+	<update id="minusCartCnt" parameterType="int">
+		UPDATE CART 
+		SET CCNT = CCNT - 1
+		WHERE CCODE = #{cCode}
+	</update>
+	
+	<insert id="insertCart" parameterType="CartVO">
+		INSERT INTO CART(CCODE, UCODE, PCODE, CCNT)
+		VALUES((SELECT NVL(MAX(CCODE),0) + 1 FROM CART), #{uCode}, #{pCode}, #{cCnt})
+	</insert>
+	
+	<!-- <insert id="insertCart" parameterType="CartVO">
+		INSERT INTO CART
+		VALUES ((SELECT NVL(MAX(CCODE),0) + 1 FROM CART), #{uCode}, #{pCode}, #{cCnt}, #{uName}, #{pName}, #{pPrice})
+	</insert> -->
+	
+	<delete id="deleteCart" parameterType="int">
+		DELETE FROM CART WHERE CCODE = #{cCode}
+	</delete>
+	
+	<delete id="deleteCartList" parameterType="int">
+		DELETE FROM CART WHERE CCODE = #{cCode}
+	</delete>
+	
+	<delete id="deleteCartAll">
+		DELETE FROM CART
+	</delete>
+	
+	<select id="getUserName" parameterType="int" resultType="String">
+		SELECT UNAME FROM USERS WHERE UCODE = #{uCode}
+	</select>
+	
+	<select id="getProduct" parameterType="int" resultType="ProductVO">
+		SELECT * FROM PRODUCT WHERE PCODE = #{pCode}
+	</select>
+	
+	<insert id="insertOrderList" parameterType="OrderVO">
+		INSERT INTO ORDERS
+		VALUES ((SELECT NVL(MAX(OCODE),0) + 1 FROM ORDERS), #{uCode}, #{cOucode}, #{pCode}, SYSDATE, #{oCnt}, #{oPrice}, #{oPay}, #{cCode})
+	</insert>
+	
+	<delete id="deleteCartSuccess" parameterType="int">
+		DELETE FROM CART WHERE UCODE = #{uCode}
+	</delete>
+</mapper>

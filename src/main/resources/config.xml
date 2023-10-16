@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+	<settings>
+		<setting name="mapUnderscoreToCamelCase" value="true"/>
+		<setting name="jdbcTypeForNull" value="NULL"/>
+	</settings>
+	
+	<typeAliases>
+		<typeAlias type="com.spring.huiloaelag.admin.ProductVO" alias="ProductVO"/>
+		<typeAlias type="com.spring.huiloaelag.admin.ReviewVO" alias="ReviewVO"/>
+		<typeAlias type="com.spring.huiloaelag.qna.QnaVO" alias="QnaVO"/>
+		<typeAlias type="com.spring.huiloaelag.qna.CartVO" alias="CartVO"/>
+		<typeAlias type="com.spring.huiloaelag.users.UserVO" alias="UserVO"/>
+		<typeAlias type="com.spring.huiloaelag.notify.NoticeVO" alias="NoticeVO"/>
+		<typeAlias type="com.spring.huiloaelag.users.OrderVO" alias="OrderVO"/>
+		<typeAlias type="com.spring.huiloaelag.community.CommunityVO" alias="CommunityVO"/>
+		<typeAlias type="com.spring.huiloaelag.community.CommentsVO" alias="CommentsVO"/>
+		<typeAlias type="com.spring.huiloaelag.product.MypageVO" alias="MypageVO"/>
+		<typeAlias type="com.spring.huiloaelag.admin.pageing.PagingVO" alias="PagingVO"/>
+	</typeAliases>
+
+</configuration>
